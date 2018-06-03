@@ -11,7 +11,8 @@ public class GridEyeApplication {
         try
         {
             TimeUnit.SECONDS.sleep(2);
-            (new ReadDataFromUSB()).connect("/dev/ttyACM0");
+//            (new ReadDataFromUSB()).connect("/dev/ttyACM0");
+            (new ReadDataFromUSB()).connect("COM4");
         }
         catch ( Exception e )
         {
