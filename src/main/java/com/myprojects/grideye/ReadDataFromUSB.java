@@ -51,7 +51,6 @@ public class ReadDataFromUSB {
             GridEyeData obj = new GridEyeData();
             try {
                 while (this.in.read(buffer) > -1) {
-                    System.out.println(buffer[1]);
                     obj.saveToBuffer(buffer);
                 }
             } catch (Exception e) {
