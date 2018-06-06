@@ -11,38 +11,106 @@
 </head>
 <body>
 <div id="main-content" class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="connect">WebSocket connection:</label>
-                    <button id="connect" class="btn btn-default" type="submit">Connect</button>
-                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
-                    </button>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-6">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="name">What is your name?</label>
-                    <input type="text" id="name" class="form-control" placeholder="Your name here...">
-                </div>
-                <button id="send" class="btn btn-default" type="submit">Send</button>
-            </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <table id="conversation" class="table table-striped">
-                <thead>
+    <h2>Grid-EYE</h2>
+</div>
+<div class="container">
+    <div class="row" style="display: flex;">
+        <div>
+            <table id="temperature-table" class="table-color" cellpadding="0" cellspacing="0">
                 <tr>
-                    <th>Greetings</th>
+                    <td id="tile_64"></td>
+                    <td id="tile_63"></td>
+                    <td id="tile_62"></td>
+                    <td id="tile_61"></td>
+                    <td id="tile_60"></td>
+                    <td id="tile_59"></td>
+                    <td id="tile_58"></td>
+                    <td id="tile_57"></td>
                 </tr>
-                </thead>
-                <tbody id="greetings">
-                </tbody>
+                <tr>
+                    <td id="tile_56"></td>
+                    <td id="tile_55"></td>
+                    <td id="tile_54"></td>
+                    <td id="tile_53"></td>
+                    <td id="tile_52"></td>
+                    <td id="tile_51"></td>
+                    <td id="tile_50"></td>
+                    <td id="tile_49"></td>
+                </tr>
+                <tr>
+                    <td id="tile_48"></td>
+                    <td id="tile_47"></td>
+                    <td id="tile_46"></td>
+                    <td id="tile_45"></td>
+                    <td id="tile_44"></td>
+                    <td id="tile_43"></td>
+                    <td id="tile_42"></td>
+                    <td id="tile_41"></td>
+                </tr>
+                <tr>
+                    <td id="tile_40"></td>
+                    <td id="tile_39"></td>
+                    <td id="tile_38"></td>
+                    <td id="tile_37"></td>
+                    <td id="tile_36"></td>
+                    <td id="tile_35"></td>
+                    <td id="tile_34"></td>
+                    <td id="tile_33"></td>
+                </tr>
+                <tr>
+                    <td id="tile_32"></td>
+                    <td id="tile_31"></td>
+                    <td id="tile_30"></td>
+                    <td id="tile_29"></td>
+                    <td id="tile_28"></td>
+                    <td id="tile_27"></td>
+                    <td id="tile_26"></td>
+                    <td id="tile_25"></td>
+                </tr>
+                <tr>
+                    <td id="tile_24"></td>
+                    <td id="tile_23"></td>
+                    <td id="tile_22"></td>
+                    <td id="tile_21"></td>
+                    <td id="tile_20"></td>
+                    <td id="tile_19"></td>
+                    <td id="tile_18"></td>
+                    <td id="tile_17"></td>
+                </tr>
+                <tr>
+                    <td id="tile_16"></td>
+                    <td id="tile_15"></td>
+                    <td id="tile_14"></td>
+                    <td id="tile_13"></td>
+                    <td id="tile_12"></td>
+                    <td id="tile_11"></td>
+                    <td id="tile_10"></td>
+                    <td id="tile_9"></td>
+                </tr>
+                <tr>
+                    <td id="tile_8"></td>
+                    <td id="tile_7"></td>
+                    <td id="tile_6"></td>
+                    <td id="tile_5"></td>
+                    <td id="tile_4"></td>
+                    <td id="tile_3"></td>
+                    <td id="tile_2"></td>
+                    <td id="tile_1"></td>
+                </tr>
             </table>
+        </div>
+        <div style="margin-left: 40px; margin-top: 80px">
+            <div>
+                <input type="checkbox" name="autoRange" checked/>
+                Auto Range
+            </div>
+            Min:
+            <br>
+            <input type="text" name="minTempInput"/>
+            <br>
+            Max:
+            <br>
+            <input type="text" name="maxTempInput"/>
         </div>
     </div>
 </div>

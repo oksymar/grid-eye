@@ -1,35 +1,36 @@
 package com.myprojects.grideye;
 
-import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+import javax.annotation.PostConstruct;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-//public class ReadDataFromUSB implements SerialPortEventListener {
+@Controller
 public class ReadDataFromUSB {
 
-    public ReadDataFromUSB() {
-        super();
-    }
+    @Autowired
+    Sender sender;
 
-    void connect(String portName) throws Exception {
+    @PostConstruct
+    void connect() throws Exception {
+        String portName = "/dev/ttyACM0";
         CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
         if (portIdentifier.isCurrentlyOwned()) {
             System.out.println("Error: Port is currently in use");
         } else {
-            CommPort commPort = portIdentifier.open(this.getClass().getName(), 2000);
-
-            if (commPort instanceof SerialPort) {
-                SerialPort serialPort = (SerialPort) commPort;
+            SerialPort serialPort = portIdentifier.open(this.getClass().getName(), 2000);
+            if (serialPort != null) {
                 serialPort.setInputBufferSize(135);
                 serialPort.setSerialPortParams(115200, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
 
                 InputStream in = serialPort.getInputStream();
                 OutputStream out = serialPort.getOutputStream();
 
-                (new Thread(new SerialReader(in))).start();
+                (new Thread(new SerialReader(in, sender))).start();
                 (new Thread(new SerialWriter(out))).start();
 
             } else {
@@ -40,15 +41,17 @@ public class ReadDataFromUSB {
 
     /** */
     public static class SerialReader implements Runnable {
-        InputStream in;
+        private final InputStream in;
+        private final Sender sender;
 
-        public SerialReader(InputStream in) {
+        public SerialReader(InputStream in, Sender sender) {
             this.in = in;
+            this.sender = sender;
         }
 
         public void run() {
             byte[] buffer = new byte[135];
-            GridEyeData obj = new GridEyeData();
+            GridEyeData obj = new GridEyeData(sender);
             try {
                 while (this.in.read(buffer) > -1) {
                     obj.saveToBuffer(buffer);
@@ -69,7 +72,7 @@ public class ReadDataFromUSB {
 
         public void run() {
             try {
-                int c = 0;
+                int c;
                 while ((c = System.in.read()) > -1) {
                     this.out.write(c);
                 }
@@ -78,45 +81,4 @@ public class ReadDataFromUSB {
             }
         }
     }
-    ///////////////////////////////////////////////////////////////////
-
-//    private BufferedReader input;
-//
-//    void connect(String portName) throws Exception {
-//        CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
-//        if (portIdentifier.isCurrentlyOwned()) {
-//            System.out.println("Error: Port is currently in use");
-//        } else {
-//            CommPort commPort = portIdentifier.open(this.getClass().getName(), 2000);
-//
-//            if (commPort instanceof SerialPort) {
-//                SerialPort serialPort = (SerialPort) commPort;
-//                serialPort.setSerialPortParams(115200, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
-//
-//                input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
-//
-//                serialPort.addEventListener(this);
-//                serialPort.notifyOnDataAvailable(true);
-//
-//            } else {
-//                System.out.println("Error: Only serial ports are handled by this example.");
-//            }
-//        }
-//    }
-//
-//    public synchronized void serialEvent(SerialPortEvent oEvent) {
-//        if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
-//            try {
-//                String inputLine = null;
-//                GridEyeData obj = new GridEyeData();
-//                if (input.ready()) {
-//                    inputLine = input.readLine();
-//                    obj.saveToBuffer(inputLine.getBytes(Charset.forName("UTF-8")));
-//                }
-//
-//            } catch (Exception e) {
-//                System.err.println(e.toString());
-//            }
-//        }
-//    }
 }
