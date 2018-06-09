@@ -16,7 +16,7 @@
 <div class="container">
     <div class="row" style="display: flex;">
         <div>
-            <table id="temperature-table" class="table-color" cellpadding="0" cellspacing="0">
+            <table id="temperature-table" class="table-color frame" cellpadding="0" cellspacing="0">
                 <tr>
                     <td id="tile_64"></td>
                     <td id="tile_63"></td>
@@ -98,12 +98,16 @@
                     <td id="tile_1"></td>
                 </tr>
             </table>
+            <img id="image1" class="frame" width="805" height="805" hidden>
+            <canvas id="myCanvas" width="8" height="8" hidden></canvas>
         </div>
         <div style="margin-left: 40px; margin-top: 80px">
-            <div>
-                <input type="checkbox" name="autoRange" checked/>
-                Auto Range
-            </div>
+            <input type="checkbox" name="smoothing"/>
+            Smoothing
+            <br>
+            <input type="checkbox" name="autoRange" checked/>
+            Auto Range
+            <br>
             Min:
             <br>
             <input type="text" name="minTempInput"/>
@@ -111,6 +115,18 @@
             Max:
             <br>
             <input type="text" name="maxTempInput"/>
+            <br>
+            <br>
+            Color scheme:
+            <br>
+            <SELECT id="colorBar" NAME="LED_COLOR">
+                <OPTION VALUE="1">
+                    Color 1
+                <OPTION VALUE="2">
+                    Color 2
+                <OPTION VALUE="3">
+                    Color 3
+            </SELECT>
         </div>
     </div>
 </div>
