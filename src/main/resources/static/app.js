@@ -47,6 +47,36 @@ function setTemperature(temperature, minTemperature, maxTemperature) {
         table[i].style.backgroundColor =
             getColorForPercentage((temperature[j] - minTemperature) / (maxTemperature - minTemperature) * 100);
     }
+    //
+    //var file = new File("D:/test.txt");
+    //file.open("w");
+    var colorArrayR = [];
+    var colorArrayG = [];
+    var colorArrayB = [];
+    for (element = 0; element < table.length; element++) {
+        var color = table[element].style.backgroundColor.replace(/[A-Za-z$-()]/g, "").split(", ");
+        for (var i in color) {
+            color[i] = parseInt(color[i]);
+        }
+        colorArrayR[element] = color[0]/255;
+        colorArrayG[element] = color[1]/255;
+        colorArrayB[element] = color[2]/255;
+        //file.write(color + "");
+    }
+    var strR = colorArrayR.toString().replace(/,/g, ' ');
+    var strG = colorArrayG.toString().replace(/,/g, ' ');
+    var strB = colorArrayB.toString().replace(/,/g, ' ');
+    //file.close();
+}
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    //return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    return componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
 function Interpolate(start, end, steps, count) {
